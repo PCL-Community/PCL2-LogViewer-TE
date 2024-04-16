@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
+import {
+    convertLogFileTextToList,
+    getErrorCount,
+    splitingLogFileContent,
+    splitingVersionLine,
+} from "./common/ContentUtils.ts";
+// Comp
+import InfoControl from "./components/InfoControl.vue";
 // Icon
 import { IconExclamationCircleFill } from "@arco-design/web-vue/es/icon";
 
@@ -7,6 +15,7 @@ import { IconExclamationCircleFill } from "@arco-design/web-vue/es/icon";
 const name = "App";
 // @ts-ignore
 const components = {
+    InfoControl,
     // Icon
     IconExclamationCircleFill,
 };
@@ -18,6 +27,41 @@ const status = reactive({
     isLoadLogButtonDisabled: false,
     isUnloadLogButtonDisabled: true,
 });
+
+const logFileResult = reactive({
+    versionMain: "",
+    versionId: "",
+    errorcount: 0,
+    raw: [""],
+    height: 0,
+});
+
+// @ts-ignore
+const tableColumn = [
+    {
+        title: "时间",
+        dataIndex: "time",
+        width: 120,
+    },
+    {
+        title: "类型",
+        dataIndex: "type",
+        width: 120,
+    },
+    {
+        title: "内容",
+        dataIndex: "message",
+    },
+];
+
+const loadData = () => {
+    if (logFileContent.value == null) return;
+    const data = splitingLogFileContent(logFileContent.value);
+    [logFileResult.versionMain, logFileResult.versionId] = splitingVersionLine(
+        data[0].message
+    );
+    logFileResult.errorcount = getErrorCount(data);
+};
 
 const handleLoadingLogFile = () => {
     const logFileEl = document.querySelector(
@@ -32,6 +76,8 @@ const handleLoadingLogFile = () => {
                 // @ts-ignore
                 const fileContent = event.target.result as string;
                 logFileContent.value = fileContent;
+                logFileResult.raw = convertLogFileTextToList(fileContent);
+                loadData();
                 // Loading End
                 status.isLogFileLoaded = true;
                 status.isLoadLogButtonDisabled = true;
@@ -42,15 +88,22 @@ const handleLoadingLogFile = () => {
             reader.readAsText(file);
         }
     });
-    // Trigger File Input
     logFileEl.click();
 };
-
 
 const handleUnloadingLogFile = () => {
     status.isLogFileLoaded = false;
     status.isLoadLogButtonDisabled = false;
     status.isUnloadLogButtonDisabled = true;
+    logFileResult.errorcount = 0;
+    logFileResult.versionMain = "";
+    logFileResult.versionId = "";
+    logFileResult.raw = [];
+    logFileContent.value = "";
+    const logFileEl = document.querySelector(
+        "input#logFileInput"
+    ) as HTMLInputElement;
+    logFileEl.value = "";
 };
 </script>
 
@@ -62,7 +115,7 @@ const handleUnloadingLogFile = () => {
         accept=".txt"
         title="日志文件(Log*.txt)" />
     <div class="container">
-        <a-card id="configCard">
+        <a-card id="ConfigCard">
             <div id="mainFlex">
                 <a-space direction="vertical">
                     <a-button
@@ -79,35 +132,57 @@ const handleUnloadingLogFile = () => {
                         关闭日志
                     </a-button>
                 </a-space>
-                <div id="infoFlex">
+                <div id="InfoFlex">
                     <a-empty v-if="!status.isLogFileLoaded">
                         <template #image>
                             <icon-exclamation-circle-fill />
                         </template>
                         请先加载日志
                     </a-empty>
+                    <InfoControl
+                        :pclversion="logFileResult.versionMain"
+                        :pclversionid="logFileResult.versionId"
+                        :pclerrorcount="logFileResult.errorcount"
+                        v-else />
                 </div>
             </div>
         </a-card>
-        <a-card id="mainCard"></a-card>
-        <a-card id="errorCard"></a-card>
+        <a-card id="MainCard" title="日志内容">
+            <div v-if="status.isLogFileLoaded">
+                <p
+                    v-for="(item, index) in logFileResult.raw"
+                    :key="index"
+                    style="white-space: pre-wrap; margin: 4px 0">
+                    {{ item }}
+                </p>
+            </div>
+        </a-card>
+        <a-card id="ErrorCard" title="错误信息"></a-card>
     </div>
 </template>
 
 <style scoped lang="less">
 div.container {
     width: calc(100% - 40px);
+    max-width: calc(100% - 40px);
     height: calc(100vh - 40px);
+    max-height: calc(100vh - 40px);
     padding: 20px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 127px 1fr;
     grid-template-areas:
-        "configCard"
-        "mainCard";
+        "ConfigCard"
+        "MainCard";
     column-gap: 10px;
     row-gap: 10px;
-    div#errorCard {
+    div#ConfigCard {
+        grid-area: ConfigCard;
+    }
+    div#MainCard {
+        grid-area: MainCard;
+    }
+    div#ErrorCard {
         display: none;
     }
     div#mainFlex {
@@ -115,7 +190,7 @@ div.container {
         gap: 10px;
         align-items: center;
         height: 91.7px;
-        div#infoFlex {
+        div#InfoFlex {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -129,17 +204,17 @@ div.container {
         grid-template-columns: 2.5fr 1fr;
         grid-template-rows: 127px 1fr;
         grid-template-areas:
-            "configCard configCard"
-            "mainCard errorCard";
-        div#configCard {
-            grid-area: configCard;
+            "ConfigCard ConfigCard"
+            "MainCard ErrorCard";
+        div#ConfigCard {
+            grid-area: ConfigCard;
         }
-        div#mainCard {
-            grid-area: mainCard;
+        div#MainCard {
+            grid-area: MainCard;
         }
-        div#errorCard {
+        div#ErrorCard {
             display: block;
-            grid-area: errorCard;
+            grid-area: ErrorCard;
         }
     }
 }
