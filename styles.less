@@ -1,0 +1,45 @@
+:root {
+    --color-fg: #333333;
+    --color-bg-o: #dddddd;
+    --color-bg-m: #ffffff;
+    --color-border: #BBBBBB;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-fg: #aeb0b2;
+        --color-bg-o: #21252b;
+        --color-bg-m: #282c34;
+        --color-border: #3f3f3f;
+    }
+}
+
+body {
+    color: var(--color-foregound);
+    margin: 0;
+    padding-right: 1px;
+    padding-bottom: 1px;
+    user-select: none;
+    overflow: hidden; /* 避免意外的滑动效果 */
+    div#app {
+        --p: 0px;
+        --br: 8px;
+        width: calc(100% - var(--p) - var(--p) - 3px);
+        height: calc(100vh - var(--p) - var(--p) - 3px);
+        color: var(--color-fg);
+        background-color: var(--color-bg-m);
+        padding: var(--p);
+        border: 1px solid var(--color-border);
+        border-radius: var(--br);
+        overflow: hidden;
+    }
+    &.maximized {
+        padding: 0;
+        div#app {
+            border: none;
+            border-radius: 0;
+            width: calc(100% - var(--p) - var(--p));
+            height: calc(100vh - var(--p) - var(--p));
+        }
+    }
+}

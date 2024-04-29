@@ -1,21 +1,25 @@
 {
-  "name": "pcl2-logviewer",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "tauri": "tauri"
-  },
-  "dependencies": {
-    "vue": "^3.3.4",
-    "@tauri-apps/api": "^1"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.4",
-    "vite": "^5.0.0",
-    "@tauri-apps/cli": "^1"
-  }
+    "name": "pcl2-logviewer",
+    "private": true,
+    "version": "0.1.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "tauri": "tauri"
+    },
+    "dependencies": {
+        "@element-plus/icons-vue": "^2.3.1",
+        "@tauri-apps/api": "^1",
+        "element-plus": "^2.7.2",
+        "less": "^4.2.0",
+        "monaco-editor": "^0.48.0",
+        "vue": "^3.3.4"
+    },
+    "devDependencies": {
+        "@tauri-apps/cli": "^1",
+        "@vitejs/plugin-vue": "^5.0.4",
+        "vite": "^5.0.0"
+    }
 }

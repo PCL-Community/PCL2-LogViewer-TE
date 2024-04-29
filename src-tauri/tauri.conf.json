@@ -1,43 +1,81 @@
 {
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build",
-    "devPath": "http://localhost:1420",
-    "distDir": "../dist"
-  },
-  "package": {
-    "productName": "pcl2-logviewer",
-    "version": "0.0.0"
-  },
-  "tauri": {
-    "allowlist": {
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      }
+    "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devPath": "http://localhost:1420",
+        "distDir": "../dist"
     },
-    "windows": [
-      {
-        "title": "pcl2-logviewer",
-        "width": 800,
-        "height": 600
-      }
-    ],
-    "security": {
-      "csp": null
+    "package": {
+        "productName": "pcl2-logviewer",
+        "version": "0.0.0"
     },
-    "bundle": {
-      "active": true,
-      "targets": "all",
-      "identifier": "com.tauri.dev",
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ]
+    "tauri": {
+        "allowlist": {
+            "all": false,
+            "shell": {
+                "all": false,
+                "open": true
+            },
+            "window": {
+                "all": false,
+                "center": false,
+                "close": true,
+                "create": false,
+                "hide": false,
+                "maximize": true,
+                "minimize": true,
+                "print": false,
+                "requestUserAttention": false,
+                "setAlwaysOnTop": false,
+                "setClosable": false,
+                "setContentProtected": false,
+                "setCursorGrab": false,
+                "setCursorIcon": false,
+                "setCursorPosition": false,
+                "setCursorVisible": false,
+                "setDecorations": false,
+                "setFocus": false,
+                "setFullscreen": false,
+                "setIcon": false,
+                "setIgnoreCursorEvents": false,
+                "setMaxSize": true,
+                "setMaximizable": false,
+                "setMinSize": false,
+                "setMinimizable": false,
+                "setPosition": false,
+                "setResizable": false,
+                "setSize": false,
+                "setSkipTaskbar": false,
+                "setTitle": false,
+                "show": false,
+                "startDragging": true,
+                "unmaximize": true,
+                "unminimize": false
+            }
+        },
+        "windows": [
+            {
+                "title": "PCL2 日志查看器",
+                "width": 800,
+                "height": 600,
+                "transparent": true,
+                "decorations": false
+            }
+        ],
+        "security": {
+            "csp": null
+        },
+        "bundle": {
+            "active": true,
+            "targets": "all",
+            "identifier": "io.github.pclcommunity.pcl2logviewer",
+            "icon": [
+                "icons/32x32.png",
+                "icons/128x128.png",
+                "icons/128x128@2x.png",
+                "icons/icon.icns",
+                "icons/icon.ico"
+            ]
+        }
     }
-  }
 }
