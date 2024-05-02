@@ -6,7 +6,7 @@
         "distDir": "../dist"
     },
     "package": {
-        "productName": "pcl2-logviewer",
+        "productName": "PCL2-LogViewer",
         "version": "0.0.0"
     },
     "tauri": {
