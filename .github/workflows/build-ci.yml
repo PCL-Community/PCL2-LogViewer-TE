@@ -47,60 +47,60 @@ jobs:
         run: npm install
       #
       - name: "[Build | All] Build Tauri App"
-        run: npm run build
+        run: npm run tauri build
       #
       - name: "[Upload Artifact | Windows] exe File"
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: MCCManager 1.0 Windows Debug exe File
+          name: PCL2-LogViewer-TE 1.0 Windows Debug exe File
           path: |
-            D:/a/MCCManager/MCCManager/src-tauri/target/release/mccmanager.exe
+            D:/a/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/mccmanager.exe
       #
       - name: "[Upload Artifact | Windows] msi Installer"
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: MCCManager 1.0 Windows msi Installer
+          name: PCL2-LogViewer-TE 1.0 Windows msi Installer
           path: |
-            D:\a\MCCManager\MCCManager\src-tauri\target\release\bundle\msi\mccmanager_1.0.0_x64_en-US.msi
+            D:\a\PCL2-LogViewer-TE\PCL2-LogViewer-TE\src-tauri\target\release\bundle\msi\PCL2-LogViewer_1.0.0_x64_en-US.msi
       #
       - name: "[Upload Artifact | Windows] exe Installer"
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: MCCManager 1.0 Windows exe Installer
+          name: PCL2-LogViewer-TE 1.0 Windows exe Installer
           path: |
-            D:\a\MCCManager\MCCManager\src-tauri\target\release\bundle\nsis\mccmanager_1.0.0_x64-setup.exe
+            D:\a\PCL2-LogViewer-TE\PCL2-LogViewer-TE\src-tauri\target\release\bundle\nsis\PCL2-LogViewer_1.0.0_x64-setup.exe
       #
       - name: "[Upload Artifact | MacOS] app File"
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: MCCManager 1.0 MacOS app File
+          name: PCL2-LogViewer-TE 1.0 MacOS app File
           path: |
-            /Users/runner/work/MCCManager/MCCManager/src-tauri/target/release/bundle/macos/mccmanager.app
+            /Users/runner/work/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/bundle/macos/mccmanager.app
       #
       - name: "[Upload Artifact | MacOS] dmg File"
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: MCCManager 1.0 MacOS dmg File
+          name: PCL2-LogViewer-TE 1.0 MacOS dmg File
           path: |
-            /Users/runner/work/MCCManager/MCCManager/src-tauri/target/release/bundle/dmg/mccmanager_1.0.0_aarch64.dmg
+            /Users/runner/work/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/bundle/dmg/PCL2-LogViewer_1.0.0_aarch64.dmg
       #
       - name: "[Upload Artifact | Linux] deb File"
         if: matrix.platform == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: MCCManager 1.0 Linux deb File
+          name: PCL2-LogViewer-TE 1.0 Linux deb File
           path: |
-            /home/runner/work/MCCManager/MCCManager/src-tauri/target/release/bundle/deb/mccmanager_1.0.0_amd64.deb
+            /home/runner/work/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/bundle/deb/PCL2-LogViewer_1.0.0_amd64.deb
       #
       - name: "[Upload Artifact | Linux] AppImage File"
         if: matrix.platform == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: MCCManager 1.0 Linux AppImage File
+          name: PCL2-LogViewer-TE 1.0 Linux AppImage File
           path: |
-            /home/runner/work/MCCManager/MCCManager/src-tauri/target/release/bundle/appimage/mccmanager_1.0.0_amd64.AppImage
+            /home/runner/work/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/bundle/appimage/PCL2-LogViewer_1.0.0_amd64.AppImage
