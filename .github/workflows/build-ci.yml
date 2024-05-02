@@ -55,7 +55,7 @@ jobs:
         with:
           name: PCL2-LogViewer-TE 1.0 Windows Debug exe File
           path: |
-            D:/a/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/mccmanager.exe
+            D:/a/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/PCL2-LogViewer.exe
       #
       - name: "[Upload Artifact | Windows] msi Installer"
         if: matrix.platform == 'windows-latest'
@@ -79,7 +79,7 @@ jobs:
         with:
           name: PCL2-LogViewer-TE 1.0 MacOS app File
           path: |
-            /Users/runner/work/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/bundle/macos/mccmanager.app
+            /Users/runner/work/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/bundle/macos/PCL2-LogViewer.app
       #
       - name: "[Upload Artifact | MacOS] dmg File"
         if: matrix.platform == 'macos-latest'
@@ -95,7 +95,7 @@ jobs:
         with:
           name: PCL2-LogViewer-TE 1.0 Linux deb File
           path: |
-            /home/runner/work/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/bundle/deb/PCL2-LogViewer_1.0.0_amd64.deb
+            /home/runner/work/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/bundle/deb/pcl2-log-viewer_1.0.0_amd64.deb
       #
       - name: "[Upload Artifact | Linux] AppImage File"
         if: matrix.platform == 'ubuntu-latest'
@@ -103,4 +103,4 @@ jobs:
         with:
           name: PCL2-LogViewer-TE 1.0 Linux AppImage File
           path: |
-            /home/runner/work/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/bundle/appimage/PCL2-LogViewer_1.0.0_amd64.AppImage
+            /home/runner/work/PCL2-LogViewer-TE/PCL2-LogViewer-TE/src-tauri/target/release/bundle/appimage/pcl2-log-viewer_1.0.0_amd64.AppImage
