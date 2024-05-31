@@ -1,8 +1,9 @@
 :root {
     --color-fg: #333333;
     --color-bg-o: #dddddd;
-    --color-bg-m: #ffffff;
-    --color-border: #BBBBBB;
+    --color-bg-m: #FAFAFA;
+    --color-border: #bbbbbb;
+    --color-border2: #DCDDDE;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -11,6 +12,7 @@
         --color-bg-o: #21252b;
         --color-bg-m: #282c34;
         --color-border: #3f3f3f;
+        --color-border2: #3C4049;
     }
 }
 
@@ -42,4 +44,42 @@ body {
             height: calc(100vh - var(--p) - var(--p));
         }
     }
+}
+
+.el-statistic__prefix, .el-statistic__number, .el-statistic__suffix {
+    color: var(--color-fg) !important;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+// HighLight Style
+:root {
+    --hljs-timestamp: #008000;
+    --hljs-category: #e57373;
+    --hljs-nums: #0000FF;
+    --hljs-pcl: #AF00DB;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --hljs-timestamp: #7f848e;
+        --hljs-category: #6369e6;
+        --hljs-nums: #d19a66;
+        --hljs-pcl: #61AFEF;
+    }
+}
+
+.hljs-timestamp {
+    color: var(--hljs-timestamp);
+    font-style: italic;
+}
+.hljs-category {
+    color: var(--hljs-category);
+}
+.hljs-number, .hljs-url, .hljs-path, .hljs-hash, .hljs-uuid {
+    color: var(--hljs-nums);
+}
+.hljs-version, .hljs-idencode {
+    color: var(--hljs-pcl)
 }

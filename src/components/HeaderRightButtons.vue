@@ -1,6 +1,8 @@
 <script setup>
 import { reactive } from "vue";
 import { invoke } from "@tauri-apps/api";
+import { ElButton, ElIcon } from "element-plus";
+import { Minus, FullScreen, Close } from "@element-plus/icons-vue";
 
 const args = reactive({
     isDark: Boolean,

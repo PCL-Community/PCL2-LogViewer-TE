@@ -1,5 +1,6 @@
 <script setup>
 import { reactive } from "vue";
+import { ElButton, ElIcon } from "element-plus";
 
 const args = reactive({
     isDark: Boolean,
@@ -27,7 +28,9 @@ window
 
 // Files
 const handleChooseFile = () => {
-    document.getElementById("fileInput").click();
+    const file = document.getElementById("fileInput")
+    file.value = ""
+    file.click();
 };
 </script>
 

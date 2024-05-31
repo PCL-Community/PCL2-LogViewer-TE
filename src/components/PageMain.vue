@@ -1,81 +1,72 @@
 <script setup>
-import { onMounted } from "vue";
-import * as monaco from "monaco-editor";
-import { customLogLangDark } from "../plugin/heightlight";
+import { reactive } from "vue";
+import hljs from "highlight.js";
+import { highlightRule } from "../plugin/highlight-rule";
+import DataBoard from "./DataBoard.vue";
+import CodeEditor from "./code/CodeEditor.vue";
+import { parseLog } from "../plugin/log-parser";
 
-onMounted(() => {
-    // Define Editor Theme
-    monaco.editor.defineTheme("logThemeLight", {
-        base: "vs",
-        inherit: true,
-        rules: [],
-        colors: {
-            "editor.background": "#FFFFFF",
-            "editor.lineHighlightBackground": "#EEEEEE",
-        },
-    });
-    monaco.editor.defineTheme("logThemeDark", {
-        base: "vs-dark",
-        inherit: true,
-        rules: [],
-        colors: {
-            "editor.background": "#282C34",
-            "editor.lineHighlightBackground": "#2C313C",
-        },
-    });
-    // Regist Language
-    monaco.languages.register({ id: "logDark" });
-    monaco.languages.setMonarchTokensProvider("logDark", customLogLangDark);
-    // Create Editor
-    const editor = monaco.editor.create(document.getElementById("editor"), {
-        theme: "logThemeDark",
-        language: "logDark",
-    });
-    window.addEventListener("resize", function () {
-        editor.layout();
-    });
-    const matcher = window.matchMedia("(prefers-color-scheme: dark)");
-    const changeTheme = (e) => {
-        if (e.matches) {
-            editor.updateOptions({ theme: "logThemeDark" });
-        } else {
-            editor.updateOptions({ theme: "logThemeLight" });
-        }
-    };
-    matcher.addEventListener("change", changeTheme);
-    changeTheme(matcher);
-    // File Handle
-    const fileHandler = (fileObj) => {
-        if (fileObj instanceof File) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                editor.setValue(e.target.result);
-            };
-            reader.readAsText(fileObj);
-        } else {
-            editor.setValue(fileObj);
-        }
-    };
-    document
-        .getElementById("fileInput")
-        .addEventListener("change", function () {
-            var selectedFile = this.files[0];
-            if (selectedFile) {
-                fileHandler(selectedFile);
-            } else {
-                fileHandler("");
-            }
-        });
+const config = reactive({
+    value: "",
+    data: [false, null, null, null, null],
+    theme: "",
 });
+
+hljs.registerLanguage("log", highlightRule);
+
+// File Handler
+const fileHandler = (fileObj) => {
+    if (fileObj instanceof File) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            config.value = e.target.result;
+            config.data = parseLog(e.target.result)
+        };
+        reader.readAsText(fileObj);
+    } else {
+        config.value = "";
+        config.data = [false, null, null, null, null]
+    }
+};
+document.getElementById("fileInput").addEventListener("change", function () {
+    var selectedFile = this.files[0];
+    if (selectedFile) {
+        fileHandler(selectedFile);
+    } else {
+        fileHandler("");
+    }
+});
+
+// Theme Handler
+const matchTheme = (e) => {
+    if (e.matches) {
+        config.theme = "atom-one-dark";
+    } else {
+        config.theme = "atom-one-light";
+    }
+};
+window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", matchTheme);
+matchTheme(window.matchMedia("(prefers-color-scheme: dark)"));
 </script>
 
 <template>
-    <div id="editor"></div>
+    <DataBoard v-model="config.data" />
+    <CodeEditor
+        v-model="config.value"
+        :theme="config.theme"
+        :read-only="true"
+        :line-nums="true"
+        :copy-code="false"
+        :languages="[['log', '日志']]"
+        width="100%"
+        height="80%"
+        border-radius="0" />
 </template>
 
-<style>
-div#editor {
-    width: 100%;
-    height: 100%;
+<style scoped lang="less">
+.code-editor{
+    border-top: 1px solid var(--color-border2);
 }
 </style>

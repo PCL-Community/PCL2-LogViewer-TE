@@ -1,7 +1,7 @@
 {
     "name": "pcl2-logviewer",
     "private": true,
-    "version": "0.1.0",
+    "version": "0.2.0",
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -13,8 +13,9 @@
         "@element-plus/icons-vue": "^2.3.1",
         "@tauri-apps/api": "^1",
         "element-plus": "^2.7.2",
+        "highlight.js": "^11.9.0",
         "less": "^4.2.0",
-        "monaco-editor": "^0.48.0",
+        "simple-code-editor": "^2.0.9",
         "vue": "^3.3.4"
     },
     "devDependencies": {

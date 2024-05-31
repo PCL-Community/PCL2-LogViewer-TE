@@ -3,14 +3,7 @@ import App from "./App.vue";
 const app = createApp(App);
 
 // Element Plus
-import ElementPlus from "element-plus";
-import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import "element-plus/dist/index.css";
-
-app.use(ElementPlus);
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-    app.component(key, component);
-}
 
 // Mount
 app.mount("#app");
@@ -29,4 +22,7 @@ const checkMaximized = () => {
 };
 
 checkMaximized();
-setInterval(checkMaximized, 200);
+setInterval(checkMaximized, 100);
+
+// Disable Context Menu
+document.addEventListener("contextmenu", (e) => e.preventDefault());
